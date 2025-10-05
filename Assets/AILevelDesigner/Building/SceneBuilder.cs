@@ -12,7 +12,10 @@ namespace AILevelDesigner.Building
             {
                 if (!catalog.TryGet(o.id, out var entry)) 
                     continue;
-                
+                var pos = o.position; 
+                pos.y = 0f;
+                if (Physics.Raycast(pos + Vector3.up*10f, Vector3.down, out var hit, 100f))
+                    pos.y = hit.point.y;
                 var rot = o.rotation.HasValue ? Quaternion.Euler(o.rotation.Value) : Quaternion.identity;
                 var go = Object.Instantiate(entry.prefab, o.position, rot, parent);
                 if (o.scale.HasValue) 
