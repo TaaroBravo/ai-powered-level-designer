@@ -129,7 +129,7 @@ public class AILevelDesignerWindow : EditorWindow
 
     private void BuildScene()
     {
-        if (_lastLayout == null || profile == null)
+        if (_lastLayout == null || profile == null) 
             return;
 
         var res = LayoutValidator.Validate(_lastLayout, profile);
@@ -139,8 +139,13 @@ public class AILevelDesignerWindow : EditorWindow
             return;
         }
 
+        var prev = GameObject.Find("AILevel");
+        if (prev) 
+            DestroyImmediate(prev);
+
         var parent = new GameObject("AILevel").transform;
         SceneBuilder.Build(_lastLayout, profile, parent);
         Selection.activeTransform = parent;
     }
+
 }
