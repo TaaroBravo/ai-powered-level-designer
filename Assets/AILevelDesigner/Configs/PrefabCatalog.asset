@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2dd64e50094363a2b6ec3563eb5b8e, type: 3}
+  m_Name: PrefabCatalog
+  m_EditorClassIdentifier: 
+  entries:
+  - id: EnemySpawner.Basic
+    prefab: {fileID: 4710456213696937495, guid: 197c9c43b89ebf44681fe09254b46cee, type: 3}
+    maxPerLevel: 6
+    tags: []
+  - id: Pickup.HealthSmall
+    prefab: {fileID: 2245250392669709208, guid: b24eeef3afadc5341a758339ddd52ea5, type: 3}
+    maxPerLevel: 4
+    tags: []
+  - id: Cover.CrateSmall
+    prefab: {fileID: 8734473257857140851, guid: 35fb170290ecc1141b206b74ca99165e, type: 3}
+    maxPerLevel: 12
+    tags: []

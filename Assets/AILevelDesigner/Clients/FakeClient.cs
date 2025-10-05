@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace AILevelDesigner
@@ -11,11 +12,11 @@ namespace AILevelDesigner
             {
                 gameType = "arena-3d",
                 theme = "desert",
-                objects =
+                objects = new List<LayoutObject>()
                 {
-                    new LayoutObject{ id="EnemySpawner.Basic", position = new Vector3(2,0,5)},
-                    new LayoutObject{ id="Pickup.HealthSmall", position = new Vector3(0,0,-3)},
-                    new LayoutObject{ id="Cover.CrateSmall", position = new Vector3(-4,0,2)}
+                    new() { id="EnemySpawner.Basic", position = new Vector3(2,0,5)},
+                    new() { id="Pickup.HealthSmall", position = new Vector3(0,0,-3)},
+                    new() { id="Cover.CrateSmall", position = new Vector3(-4,0,2)}
                 }
             };
             return Task.FromResult(data);
