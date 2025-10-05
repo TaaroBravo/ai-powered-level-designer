@@ -17,15 +17,16 @@ namespace AILevelDesigner
 
         public async Task<LayoutData> GenerateLayoutAsync(string prompt, string capabilitiesJson, string schemaJson)
         {
-            var systemMsg = PromptBuilder.BuildSystemMessage(string.IsNullOrWhiteSpace(_config.systemPromptHint) ? schemaJson
+            var systemMsg = PromptBuilder.BuildSystemMessage(string.IsNullOrWhiteSpace(_config.systemPromptHint)
+                ? schemaJson
                 : (schemaJson + "\n\n-- HINTS --\n" + _config.systemPromptHint));
             var userMsg = PromptBuilder.BuildUserMessage(prompt ?? string.Empty, capabilitiesJson ?? "{}");
 
             var body = BuildResponsesBody(_config.openAIModel, systemMsg, userMsg, schemaJson);
 
             var url = string.IsNullOrWhiteSpace(_config.endpoint)
-                    ? "https://api.openai.com/v1/responses"
-                    : _config.endpoint.Trim();
+                ? "https://api.openai.com/v1/responses"
+                : _config.endpoint.Trim();
 
             using var req = new UnityWebRequest(url, "POST");
             var payload = Encoding.UTF8.GetBytes(body);
@@ -39,7 +40,8 @@ namespace AILevelDesigner
 
             if (req.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"[AI LD] OpenAI HTTP error {req.responseCode}: {req.error}\n{req.downloadHandler.text}");
+                Debug.LogError(
+                    $"[AI LD] OpenAI HTTP error {req.responseCode}: {req.error}\n{req.downloadHandler.text}");
                 return null;
             }
 
@@ -104,16 +106,16 @@ namespace AILevelDesigner
         {
             const string key = "\"output_text\":";
             var i = raw.IndexOf(key);
-            if (i < 0) 
+            if (i < 0)
                 return null;
-            
+
             i += key.Length;
 
             while (i < raw.Length && char.IsWhiteSpace(raw[i]))
                 i++;
             if (i >= raw.Length || raw[i] != '\"')
                 return null;
-            
+
             i++;
 
             var sb = new StringBuilder();
@@ -123,8 +125,8 @@ namespace AILevelDesigner
                 var c = raw[i];
                 if (esc)
                 {
-                    sb.Append(c); 
-                    esc = false; 
+                    sb.Append(c);
+                    esc = false;
                     continue;
                 }
 
@@ -133,42 +135,43 @@ namespace AILevelDesigner
                     esc = true;
                     continue;
                 }
-                
-                if (c == '\"') 
+
+                if (c == '\"')
                     break;
                 sb.Append(c);
             }
+
             return sb.ToString();
         }
 
         private static string ExtractFirstJson(string s)
         {
-            if (string.IsNullOrEmpty(s)) 
+            if (string.IsNullOrEmpty(s))
                 return null;
             int start = s.IndexOf('{');
             int end = s.LastIndexOf('}');
-            if (start >= 0 && end > start) 
+            if (start >= 0 && end > start)
                 return s.Substring(start, end - start + 1);
-            
+
             return null;
         }
 
         private static string StripFences(string s)
         {
-            if (string.IsNullOrEmpty(s)) 
+            if (string.IsNullOrEmpty(s))
                 return s;
-            
+
             if (s.StartsWith("```"))
             {
                 var i = s.IndexOf('\n');
                 var j = s.LastIndexOf("```");
                 if (i >= 0 && j > i) return s.Substring(i + 1, j - (i + 1));
             }
+
             return s;
         }
 
         private static string Escape(string s) => s?.Replace("\\", "\\\\").Replace("\"", "\\\"") ?? "";
         private static string ToJson(string s) => $"\"{Escape(s)}\"";
-    }
     }
 }
