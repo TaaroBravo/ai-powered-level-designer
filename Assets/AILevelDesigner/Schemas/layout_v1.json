@@ -1,0 +1,46 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LayoutData",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "gameType": { "type": "string" },
+    "theme": { "type": "string" },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "position": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "z": { "type": "number" }
+            },
+            "required": ["x", "y", "z"]
+          },
+          "rotationEuler": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "z": { "type": "number" }
+            }
+          },
+          "scale": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "z": { "type": "number" }
+            }
+          }
+        },
+        "required": ["id", "position"]
+      }
+    }
+  },
+  "required": ["gameType", "objects"]
+}

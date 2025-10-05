@@ -78,10 +78,12 @@ public class AILevelDesignerWindow : EditorWindow
                 Debug.LogWarning($"[AI LD] Capabilities build failed, fallback to empty JSON. Details: {buildEx}");
                 capabilitiesJson = "{}";
             }
-
+            
+            var schemaAsset = Resources.Load<TextAsset>("AILevelDesigner/Schemas/layout_v1");
+            var schemaJson  = schemaAsset != null ? schemaAsset.text : "";
             var client = AIClientFactory.Create(config);
 
-            _lastLayout = await client.GenerateLayoutAsync(prompt, capabilitiesJson,"layout_v1") ?? new LayoutData
+            _lastLayout = await client.GenerateLayoutAsync(prompt, capabilitiesJson,schemaJson) ?? new LayoutData
             {
                 gameType = profile.gameTypeId ?? "unknown",
                 theme = "default",
