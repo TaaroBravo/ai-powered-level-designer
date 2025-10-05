@@ -18,8 +18,7 @@ namespace AILevelDesigner
         public async Task<LayoutData> GenerateLayoutAsync(string prompt, string capabilitiesJson, string schemaJson)
         {
             var systemMsg = PromptBuilder.BuildSystemMessage(string.IsNullOrWhiteSpace(_config.systemPromptHint)
-                ? schemaJson
-                : (schemaJson + "\n\n-- HINTS --\n" + _config.systemPromptHint));
+                ? schemaJson : (schemaJson + "\n\n-- HINTS --\n" + _config.systemPromptHint));
             var userMsg = PromptBuilder.BuildUserMessage(prompt ?? string.Empty, capabilitiesJson ?? "{}");
 
             var body = BuildResponsesBody(_config.openAIModel, systemMsg, userMsg, schemaJson);

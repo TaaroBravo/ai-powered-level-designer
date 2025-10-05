@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7b2ec1c93d4eb59b1d1c7ec860037d, type: 3}
   m_Name: AIConfig
   m_EditorClassIdentifier: 
-  aiProvider: 0
+  aiProvider: 1
   openAIModel: gpt-4o-mini
-  endpoint: 
+  endpoint: https://api.openai.com/v1/responses
   systemPromptHint: 
   apiKey: 
