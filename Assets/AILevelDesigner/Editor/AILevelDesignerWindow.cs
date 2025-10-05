@@ -107,7 +107,12 @@ public class AILevelDesignerWindow : EditorWindow
         var caps = new CapabilitiesDescriptor
         {
             gameType = profile.gameTypeId ?? string.Empty,
-            allowedThemes = profile.allowedThemes ?? System.Array.Empty<string>()
+            allowedThemes = profile.allowedThemes ?? System.Array.Empty<string>(),
+            coordinateSpace = profile.coordinateSpace.ToString(),
+            worldScale = profile.worldScale,
+            cellSize = profile.cellSize,
+            gridWidth = profile.gridWidth,
+            gridHeight = profile.gridHeight
         };
 
         var entries = profile.catalog?.entries ?? new System.Collections.Generic.List<Entry>();

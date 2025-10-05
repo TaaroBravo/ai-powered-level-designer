@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2dd64e50094363a2b6ec3563eb5b8e, type: 3}
+  m_Name: PrefabCatalog_TowerDefense
+  m_EditorClassIdentifier: 
+  entries:
+  - id: TD.EnemySpawner
+    prefab: {fileID: 3090363942314231703, guid: 3fd74f87d3bf10242abde574d0d2581c, type: 3}
+    maxPerLevel: 3
+    tags: []
+  - id: TD.PathTile
+    prefab: {fileID: 4104290633885718789, guid: c6a3ebbc289dbd24d98bb60024c51101, type: 3}
+    maxPerLevel: 15
+    tags: []
+  - id: TD.TowerSlot
+    prefab: {fileID: 3025087710425232793, guid: 288200c87edea9d46888630e32cb2ef5, type: 3}
+    maxPerLevel: 5
+    tags: []
+  - id: TD.BaseCore
+    prefab: {fileID: 1520851038001943940, guid: ba52efca2cf8cf2438cd92862648b7bc, type: 3}
+    maxPerLevel: 1
+    tags: []

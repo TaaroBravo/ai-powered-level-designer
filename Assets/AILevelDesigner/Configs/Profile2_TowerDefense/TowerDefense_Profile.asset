@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1a27e9907e41e5ad3d2acfce92299a, type: 3}
+  m_Name: TowerDefense_Profile
+  m_EditorClassIdentifier: 
+  gameTypeId: td-grid
+  coordinateSpace: 1
+  catalog: {fileID: 11400000, guid: 7c451c8e2e1fe974685abc735908d49f, type: 2}
+  navmeshRequired: 0
+  allowedThemes:
+  - default
+  - forest
+  - ruins
+  worldScale: 1
+  arenaSize: {x: 40, y: 40}
+  generateGroundPlane: 1
+  groundMaterial: {fileID: 0}
+  cellSize: 2
+  gridWidth: 14
+  gridHeight: 10
+  gridOrigin: {x: 0, y: 0, z: 0}

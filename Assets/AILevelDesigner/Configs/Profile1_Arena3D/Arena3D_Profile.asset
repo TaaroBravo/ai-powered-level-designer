@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e1a27e9907e41e5ad3d2acfce92299a, type: 3}
-  m_Name: GameTypeProfile
+  m_Name: Arena3D_Profile
   m_EditorClassIdentifier: 
   gameTypeId: arena-3d
   coordinateSpace: 0
@@ -21,3 +21,11 @@ MonoBehaviour:
   - desert
   - forest
   - city
+  worldScale: 2
+  arenaSize: {x: 80, y: 80}
+  generateGroundPlane: 1
+  groundMaterial: {fileID: 2100000, guid: ed3d6d6544acbf740ab76cfc9ed83d91, type: 2}
+  cellSize: 2
+  gridWidth: 12
+  gridHeight: 8
+  gridOrigin: {x: 0, y: 0, z: 0}
