@@ -16,4 +16,4 @@ MonoBehaviour:
   openAIModel: gpt-4o-mini
   endpoint: https://api.openai.com/v1/responses
   systemPromptHint: 
-  apiKey: 
+  apiKey: api-here

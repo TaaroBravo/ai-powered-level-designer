@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using AILevelDesigner.Configs;
 using UnityEngine;
@@ -39,14 +40,13 @@ namespace AILevelDesigner
 
             if (req.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError(
-                    $"[AI LD] OpenAI HTTP error {req.responseCode}: {req.error}\n{req.downloadHandler.text}");
+                Debug.LogError($"[AI LD] OpenAI HTTP error {req.responseCode}: {req.error}\n{req.downloadHandler.text}");
                 return null;
             }
 
             var raw = req.downloadHandler.text;
 
-            var content = ExtractOutputText(raw);
+            var content = ExtractJsonFromResponses(raw);
 
             if (string.IsNullOrEmpty(content))
                 content = ExtractFirstJson(raw);
@@ -77,24 +77,28 @@ namespace AILevelDesigner
             sb.Append("{");
             sb.AppendFormat("\"model\":\"{0}\",", Escape(model));
             sb.Append("\"temperature\":0,");
+            sb.Append("\"max_output_tokens\":1000,");
             sb.Append("\"input\":[");
             sb.AppendFormat("{{\"role\":\"system\",\"content\":{0}}},", ToJson(systemMsg));
             sb.AppendFormat("{{\"role\":\"user\",\"content\":{0}}}", ToJson(userMsg));
-            sb.Append("],");
+            sb.Append("]");
 
             if (!string.IsNullOrWhiteSpace(schemaJson))
             {
-                sb.Append("\"response_format\":{");
+                sb.Append(",\"text\":{");
+                sb.Append("\"format\":{");
                 sb.Append("\"type\":\"json_schema\",");
-                sb.Append("\"json_schema\":{");
                 sb.Append("\"name\":\"layout_v1\",");
+                sb.Append("\"strict\":true,");
                 sb.Append("\"schema\":");
                 sb.Append(schemaJson);
                 sb.Append("}}");
             }
             else
             {
-                sb.Append("\"response_format\":{\"type\":\"json_object\"}");
+                sb.Append(",\"text\":{");
+                sb.Append("\"format\":{ \"type\":\"json_object\" }");
+                sb.Append("}");
             }
 
             sb.Append("}");
@@ -170,7 +174,68 @@ namespace AILevelDesigner
             return s;
         }
 
-        private static string Escape(string s) => s?.Replace("\\", "\\\\").Replace("\"", "\\\"") ?? "";
+        private static string Escape(string s)
+        {
+            if (s == null) return "";
+            return s
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\n", "\\n")
+                .Replace("\r", "\\r")
+                .Replace("\t", "\\t");
+        }
+
         private static string ToJson(string s) => $"\"{Escape(s)}\"";
+        
+        [Serializable]
+        private class RContent
+        {
+            public string type; 
+            public string text;
+        }
+
+        [Serializable]
+        private class RMessage
+        {
+            public string role; 
+            public string type;
+            public RContent[] content;
+        }
+
+        [Serializable]
+        private class RRoot
+        {
+            public string output_text;
+            public RMessage[] output;
+        }
+
+        private static string ExtractJsonFromResponses(string raw)
+        {
+            try
+            {
+                var root = JsonUtility.FromJson<RRoot>(raw);
+                if (!string.IsNullOrEmpty(root?.output_text))
+                    return root.output_text;
+                if (root?.output != null)
+                {
+                    foreach (var msg in root.output)
+                    {
+                        if (msg?.content == null) continue;
+                        foreach (var c in msg.content)
+                        {
+                            if (!string.IsNullOrEmpty(c?.text))
+                                return c.text;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return ExtractFirstJson(raw);
+        }
+
     }
 }

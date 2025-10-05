@@ -28,8 +28,8 @@ namespace AILevelDesigner
             body.Append("\"format\":\"json\",");
             body.Append("\"options\":{\"temperature\":0},");
             body.Append("\"messages\":[");
-            body.AppendFormat("{{\"role\":\"system\",\"content\":{0}}},", ToJsonString(systemMsg));
-            body.AppendFormat("{{\"role\":\"user\",\"content\":{0}}}", ToJsonString(userMsg));
+            body.AppendFormat("{{\"role\":\"system\",\"content\":{0}}},", ToJson(systemMsg));
+            body.AppendFormat("{{\"role\":\"user\",\"content\":{0}}}", ToJson(userMsg));
             body.Append("]}");
 
             var url = string.IsNullOrWhiteSpace(_config.endpoint)
@@ -84,8 +84,18 @@ namespace AILevelDesigner
             }
         }
 
-        private static string Escape(string s) => s?.Replace("\\", "\\\\").Replace("\"", "\\\"") ?? "";
-        private static string ToJsonString(string s) => $"\"{Escape(s)}\"";
+        private static string Escape(string s)
+        {
+            if (s == null) return "";
+            return s
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\n", "\\n")
+                .Replace("\r", "\\r")
+                .Replace("\t", "\\t");
+        }
+
+        private static string ToJson(string s) => $"\"{Escape(s)}\"";
 
         private static string StripCodeFences(string s)
         {
