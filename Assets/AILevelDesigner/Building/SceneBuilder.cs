@@ -167,7 +167,7 @@ namespace AILevelDesigner.Building
 
             var spawner = data.objects.FirstOrDefault(o => isSpawnerId(o.id));
             var goal = data.objects.FirstOrDefault(o => isBaseId(o.id));
-            var slots = data.objects.Where(o => isSlotId(o.id)).ToList(); // referencias directas
+            var slots = data.objects.Where(o => isSlotId(o.id)).ToList(); 
 
             if (spawner != null) spawner.position = ClampToEdge(cellOf(spawner.position), p);
             if (goal != null) goal.position = ClampToEdge(cellOf(goal.position), p);
@@ -221,7 +221,6 @@ namespace AILevelDesigner.Building
                 }
             }
 
-            // dedupe por (id, celda)
             var seen = new HashSet<(string id, int x, int z)>();
             for (var i = data.objects.Count - 1; i >= 0; i--)
             {
@@ -231,7 +230,6 @@ namespace AILevelDesigner.Building
                 if (!seen.Add(k)) data.objects.RemoveAt(i);
             }
 
-// cap de slots por id (usa maxPerLevel si existe; si no, fallback=10)
             var slotObjs = data.objects.Where(o => isSlotId(o.id)).ToList();
             foreach (var g in slotObjs.GroupBy(o => o.id))
             {
@@ -252,7 +250,6 @@ namespace AILevelDesigner.Building
                         data.objects.RemoveAt(i);
             }
 
-// cap de decoraciones (tags "decoration"/"prop" o heurística; fallback=3)
             Func<string, bool> isDecoId = id =>
             {
                 if (map.TryGetValue(id, out var e) && e.tags != null && e.tags.Any(t =>

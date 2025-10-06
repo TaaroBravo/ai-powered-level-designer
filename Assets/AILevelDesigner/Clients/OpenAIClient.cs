@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading.Tasks;
 using AILevelDesigner.Configs;
-using AILevelDesigner.Profiles;
 using UnityEngine;
 using UnityEngine.Networking;
 

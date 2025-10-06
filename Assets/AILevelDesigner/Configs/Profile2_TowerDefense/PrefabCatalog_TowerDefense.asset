@@ -23,7 +23,7 @@ MonoBehaviour:
     tags: []
   - id: TD.TowerSlot
     prefab: {fileID: 3025087710425232793, guid: 288200c87edea9d46888630e32cb2ef5, type: 3}
-    maxPerLevel: 50
+    maxPerLevel: 15
     tags: []
   - id: TD.BaseCore
     prefab: {fileID: 1520851038001943940, guid: ba52efca2cf8cf2438cd92862648b7bc, type: 3}
