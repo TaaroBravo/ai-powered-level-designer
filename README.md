@@ -1,6 +1,6 @@
 # AI Level Designer
 
-[![Unity](https://img.shields.io/badge/Unity-2023.2%2B-black?logo=unity)](https://unity.com/)
+[![Unity](https://img.shields.io/badge/Unity-6000.0.36f1-black?logo=unity)](https://unity.com/)
 [![C#](https://img.shields.io/badge/Language-C%23-178600)](https://learn.microsoft.com/en-us/dotnet/csharp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OpenAI / Ollama](https://img.shields.io/badge/AI%20Backends-OpenAI%20%7C%20Ollama-orange)](https://ollama.ai/)
