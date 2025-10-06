@@ -170,5 +170,3 @@ Developed by **Lautaro Bravo de la Serna**
 * Support for terrain-aware height placement
 * Expand prompt templates per game type
 * Save/load generated layouts as reusable presets
-
-```
