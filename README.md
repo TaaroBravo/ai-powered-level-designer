@@ -29,7 +29,7 @@ It supports multiple game types such as *3D Arenas* and *Tower Defense Grids*, a
 
 ## Screenshots
 
-| Base Window | Arena Generation | Arena Built | Tower Defense Generation | Tower Defense Built |
+| Base Window | Arena Generation | Arena Built | Arena Built 2 | Tower Defense Built |
 |--------------|-----------------|--------------|---------------------------|----------------------|
 | ![Base UI](screenshots/base-ui.PNG) | ![Arena Prompt](screenshots/request-complete-arena-ui.PNG) | ![Built Arena](screenshots/built-arena-ui.PNG) | ![Built Arena 2](screenshots/built-arena2-ui.PNG) | ![Built TD](screenshots/built-towerdefense-ui.PNG) |
 
