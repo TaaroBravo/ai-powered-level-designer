@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class CapabilitiesDescriptor
 {
     public string gameType;
-    public string[] allowedThemes;
     public List<CatalogItemDescriptor> objects = new();
+    public string worldDescription;
     public string coordinateSpace;
+    public float worldScale;
     public float cellSize;
     public int gridWidth, gridHeight;
-    public float worldScale;
 }

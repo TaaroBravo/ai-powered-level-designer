@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using AILevelDesigner;
@@ -83,14 +85,16 @@ public class AILevelDesignerWindow : EditorWindow
             var schemaJson  = schemaAsset != null ? schemaAsset.text : "";
             var client = AIClientFactory.Create(config);
 
-            _lastLayout = await client.GenerateLayoutAsync(prompt, capabilitiesJson,schemaJson) ?? new LayoutData
+            _lastLayout = await client.GenerateLayoutAsync(prompt, capabilitiesJson, "") ?? new LayoutData
             {
                 gameType = profile.gameTypeId ?? "unknown",
-                theme = "default",
-                objects = new System.Collections.Generic.List<LayoutObject>()
+                theme = "default", 
+                objects = new List<LayoutObject>()
             };
-
+            
+            _lastLayout = LayoutSanitizer.PruneToCatalogCaps(_lastLayout, profile);
             jsonPreview = JsonUtility.ToJson(_lastLayout, true);
+
             Repaint();
         }
         catch (System.Exception ex)
@@ -107,7 +111,7 @@ public class AILevelDesignerWindow : EditorWindow
         var caps = new CapabilitiesDescriptor
         {
             gameType = profile.gameTypeId ?? string.Empty,
-            allowedThemes = profile.allowedThemes ?? System.Array.Empty<string>(),
+            worldDescription = profile.worldDescription ?? "",
             coordinateSpace = profile.coordinateSpace.ToString(),
             worldScale = profile.worldScale,
             cellSize = profile.cellSize,
@@ -115,29 +119,31 @@ public class AILevelDesignerWindow : EditorWindow
             gridHeight = profile.gridHeight
         };
 
-        var entries = profile.catalog?.entries ?? new System.Collections.Generic.List<Entry>();
-
+        var entries = profile.catalog?.entries ?? new List<Entry>();
         foreach (var e in entries)
         {
-            if (e == null || string.IsNullOrWhiteSpace(e.id)) continue;
-
+            if (e == null || string.IsNullOrWhiteSpace(e.id))
+                continue;
             caps.objects.Add(new CatalogItemDescriptor
             {
                 id = e.id,
                 maxPerLevel = e.maxPerLevel,
-                tags = e.tags ?? System.Array.Empty<string>()
+                tags = e.tags ?? Array.Empty<string>()
             });
         }
 
         return JsonUtility.ToJson(caps, true);
     }
 
+
     private void BuildScene()
     {
         if (_lastLayout == null || profile == null) 
             return;
 
+        _lastLayout = LayoutSanitizer.PruneToCatalogCaps(_lastLayout, profile);
         var res = LayoutValidator.Validate(_lastLayout, profile);
+
         if (!res.ok)
         {
             ShowNotification(new GUIContent("Layout invalid: " + res.message));

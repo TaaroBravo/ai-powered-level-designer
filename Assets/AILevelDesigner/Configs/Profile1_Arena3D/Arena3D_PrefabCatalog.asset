@@ -15,13 +15,25 @@ MonoBehaviour:
   entries:
   - id: EnemySpawner.Basic
     prefab: {fileID: 4710456213696937495, guid: 197c9c43b89ebf44681fe09254b46cee, type: 3}
-    maxPerLevel: 6
+    maxPerLevel: 20
     tags: []
-  - id: Pickup.HealthSmall
+  - id: Pickup.Chest
     prefab: {fileID: 2245250392669709208, guid: b24eeef3afadc5341a758339ddd52ea5, type: 3}
-    maxPerLevel: 4
+    maxPerLevel: 20
     tags: []
   - id: Cover.CrateSmall
     prefab: {fileID: 8734473257857140851, guid: 35fb170290ecc1141b206b74ca99165e, type: 3}
+    maxPerLevel: 20
+    tags: []
+  - id: Enviroument.Tree
+    prefab: {fileID: 1641673736165252476, guid: 385d4cbd6f6141a4c952fbd558abc715, type: 3}
+    maxPerLevel: 20
+    tags: []
+  - id: Enviroument.Rock
+    prefab: {fileID: 4676893426399360122, guid: 5f9475a262221ac4793c76cfd880e386, type: 3}
+    maxPerLevel: 12
+    tags: []
+  - id: Enviroument.Rock2
+    prefab: {fileID: 3056820702075248967, guid: 050c6c4e5dec2d14e8d30417532b5af7, type: 3}
     maxPerLevel: 12
     tags: []
